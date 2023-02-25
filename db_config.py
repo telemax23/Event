@@ -3,3 +3,4 @@ user = "admin"
 port = 3306
 password = "gnt6al47"
 db_name = "logistics_db"
+new
