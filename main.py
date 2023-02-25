@@ -135,6 +135,7 @@ class Event(Ui_Event):
         dialog.exec()
 
     def clicked_connect(self):
+        """Обработка нажатий кнопок"""
         self.pushButton_add_participance.clicked.connect(Add_participant)
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
 
@@ -157,6 +158,7 @@ class Analisis_list(Ui_Analisis_docs):
             tree.headerItem().setText(columns_names.index(name), name)
 
     def clicked_connect(self):
+        """Обработка нажатий кнопок"""
         pass
         # self.pushButton_add_participance.clicked.connect(List_participants)
         self.pushButton_open_analisis_doc.clicked.connect(Accept_docs)
@@ -174,6 +176,7 @@ class Accept_docs(Ui_Accept_docs):
 
 
 class Add_participant(Ui_Add_participant):
+    """Окно добавления участника в Мероприятие"""
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -198,6 +201,7 @@ class Create_Event(Ui_Create_event):
 
 
 class Create_user(Ui_Create_user):
+    """Окно создания Пользователя"""
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -229,17 +233,20 @@ class Create_participant(Ui_Create_participant):
         dialog.exec()
 
     def clicked_connect(self, dialog):
+        """Обработка нажатий кнопок окна создание Участника"""
         self.pushButton_generate.clicked.connect(self.generate_password)
         self.pushButton_save.clicked.connect(dialog.show)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
     def generate_password(self):
+        """Генерация пароля по нажатию на кнопку"""
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
 
 
 class Edit_participant(Ui_Create_participant):
+    """Окно редактирования Участника"""
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -251,18 +258,20 @@ class Edit_participant(Ui_Create_participant):
         dialog.exec()
 
     def clicked_connect(self, dialog):
+        """Обработка нажатий кнопок окна Редактирование участника"""
         self.pushButton_generate.clicked.connect(self.generate_password)
         self.pushButton_save.clicked.connect(dialog.show)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
     def generate_password(self):
+        """Генерация пароля в окне Редактирования Участника"""
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
 
 
 class Create_organization(Ui_Create_organization):
-    """Класс создания новой организации"""
+    """Окно создания новой организации"""
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -272,7 +281,7 @@ class Create_organization(Ui_Create_organization):
 
 
 class Create_inspector(Ui_Create_inspector):
-    """Класс создания инспектора"""
+    """Окно создания инспектора"""
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -282,16 +291,18 @@ class Create_inspector(Ui_Create_inspector):
         dialog.exec()
 
     def clicked_connect(self):
+        """Обработка нажатий кнопок в окне Создание Инспектора"""
         self.pushButton_select_organization.clicked.connect(List_organization)
         self.pushButton_generate.clicked.connect(self.generate_password)
 
     def generate_password(self):
+        """Обработка нажатий кнопок в окне Создание Инспектора"""
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
 
 
 class List_organization(Ui_List_organization):
-    """Список всех организаций"""
+    """Окно выводит список всех Организаций"""
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -302,11 +313,13 @@ class List_organization(Ui_List_organization):
         dialog.exec()
 
     def clicked_connect(self, dialog):
+        """Обработка нажатий кнопок в окне List_organization"""
         self.buttonBox.accepted.connect(dialog.accept)
         self.buttonBox.rejected.connect(dialog.reject)
         self.pushButton_add_organization.clicked.connect(Create_organization)
 
     def set_headers(self, headers_names, tree):
+        """Установка заголовков таблицы Списка Организаций"""
         tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
 
         for header in headers_names:
@@ -314,36 +327,35 @@ class List_organization(Ui_List_organization):
 
 
 class List_participants(Ui_List_participants):
-    """Список всех участников вне зависимости от мероприятий"""
+    """Окно выводит список всех участников в БД, вне зависимости от мероприятий"""
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
-        self.set_username_login_role(dialog)
-        username_login_role = access.get_username_and_role(user_login)
-        self.label_username_login_role.setText(f'{username_login_role}')
-
+        self.set_username_login_role()
         # Установка соеденения с БД
         self.db = Mysql(host, port, user, password, db_name)
-
         # Установка заголовков для колонок  treeWidget
         headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчетство', 'Город', 'e-mail', 'Пароль', 'Комментарий']
         self.set_headers(headers_names, self.tree_participants_list)
-
         # Инициализация функции вывода списка всех участников
+
         # self.set_view_of_all_participants()
 
         self.clicked_connect()
         dialog.exec()
 
-    def set_username_login_role(self, dialog):
+    def set_username_login_role(self):
+        """Показывает Имя и Роль пользователя запустившего программу"""
         username_login_role = access.get_username_and_role(user_login)
         self.label_username_login_role.setText(f'{username_login_role}')
 
     def clicked_connect(self):
+        """Обработка нажатий кнопок в окне Список всех участников"""
         self.pushButton_create_participant.clicked.connect(Create_participant)
         self.pushButton_edit_participant.clicked.connect(Edit_participant)
 
     def set_headers(self, headers_names, tree):
+        """Устанавливает заголовки колонок для Списка всех участников"""
         tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
 
         for header in headers_names:
