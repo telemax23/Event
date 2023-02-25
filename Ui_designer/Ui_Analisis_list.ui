@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Analisis_docs</class>
+ <widget class="QDialog" name="Analisis_docs">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1400</width>
+    <height>560</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Логистик</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="7" column="0" colspan="9">
+    <widget class="QTreeWidget" name="treeWidget_analysis">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <column>
+      <property name="text">
+       <string>Телефон</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Фамилия</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Имя</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Отчетство</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Паспорт</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Прописка</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>ИНН</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>СНИЛС</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Диплом</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Сертификат</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Согласие</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Анкета</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Договор</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Акт</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Отчет</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="9" column="8">
+    <layout class="QFormLayout" name="formLayout"/>
+   </item>
+   <item row="1" column="0" colspan="9">
+    <widget class="QLabel" name="label_username_login_role">
+     <property name="text">
+      <string>username_login_role</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QPushButton" name="pushButton_update_table">
+     <property name="text">
+      <string>Обновить данные</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <widget class="QPushButton" name="pushButton_open_analisis_doc">
+     <property name="text">
+      <string>Открыть док-ты</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
+    <widget class="QPushButton" name="pushButton_template_survey">
+     <property name="text">
+      <string>Анкета</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="3">
+    <widget class="QPushButton" name="pushButton_template_contract">
+     <property name="text">
+      <string>Договор</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_update_temlate">
+     <property name="text">
+      <string>Обновить шаблон:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QPushButton" name="pushButton_template_agreement">
+     <property name="text">
+      <string>Согласие</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="4">
+    <widget class="QPushButton" name="pushButton_template_act">
+     <property name="text">
+      <string>Акт</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="5">
+    <widget class="QPushButton" name="pushButton_template_report">
+     <property name="text">
+      <string>Отчет</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="6">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="0" colspan="9">
+    <widget class="QLabel" name="label_analysis_download_docs">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Анализ полученных документов</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="7">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Analisis_docs</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1173</x>
+     <y>538</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>699</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Analisis_docs</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1173</x>
+     <y>538</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>699</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_analisis_doc</sender>
+   <signal>clicked()</signal>
+   <receiver>Analisis_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>216</x>
+     <y>78</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>699</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Accept_docs</class>
+ <widget class="QDialog" name="Accept_docs">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>700</width>
+    <height>474</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Логистик</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="6" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_inn">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_act">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="3">
+    <widget class="QLineEdit" name="lineEdit_report_comment">
+     <property name="placeholderText">
+      <string>Комментарий Отчета</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_registration">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_snils">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QLabel" name="label_comment">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Комментарий при отклонении</string>
+     </property>
+    </widget>
+   </item>
+   <item row="16" column="3">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="5" column="3">
+    <widget class="QLineEdit" name="lineEdit_registration_comment">
+     <property name="placeholderText">
+      <string>Комментарий регистрации</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_sertificate">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="3">
+    <widget class="QLineEdit" name="lineEdit_act_comment">
+     <property name="placeholderText">
+      <string>Комментарий Акта</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_agree">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="0">
+    <widget class="QPushButton" name="pushButton_open_contract">
+     <property name="text">
+      <string>Договор</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="3">
+    <widget class="QLineEdit" name="lineEdit_snils_comment">
+     <property name="placeholderText">
+      <string>Комментарий СНИЛС</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QPushButton" name="pushButton_open_inn">
+     <property name="text">
+      <string>ИНН</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="0">
+    <widget class="QPushButton" name="pushButton_open_act">
+     <property name="text">
+      <string>Акт</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_sertificate">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_survey">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3">
+    <widget class="QLineEdit" name="lineEdit_passport_comment">
+     <property name="placeholderText">
+      <string>Комментарий паспорта</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="4">
+    <widget class="QLabel" name="label_participant_full_name">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Participant_full_name</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_passport">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="3">
+    <widget class="QLineEdit" name="lineEdit_survey_comment">
+     <property name="placeholderText">
+      <string>Комментарий Анкета</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_snils">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3">
+    <widget class="QLineEdit" name="lineEdit_inn_comment">
+     <property name="placeholderText">
+      <string>Комментарий ИНН</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_diploma">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="0">
+    <widget class="QPushButton" name="pushButton_open_survey">
+     <property name="text">
+      <string>Анкета</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="pushButton_open_passport">
+     <property name="text">
+      <string>Паспорт</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_inn">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_act">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="4">
+    <widget class="QLabel" name="label_event">
+     <property name="text">
+      <string>Event</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_report">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_diploma">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="0">
+    <widget class="QPushButton" name="pushButton_open_report">
+     <property name="text">
+      <string>Отчет</string>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_contract">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QPushButton" name="pushButton_open_sertificate">
+     <property name="text">
+      <string>Сертификат</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_survey">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_contract">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_agree">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QPushButton" name="pushButton_open_diploma">
+     <property name="text">
+      <string>Диплом</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QCheckBox" name="checkBox_reject_passport">
+     <property name="text">
+      <string>Отклонено</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_registration">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="3">
+    <widget class="QLineEdit" name="lineEdit_contract_comment">
+     <property name="placeholderText">
+      <string>Комментарий Договора</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="1">
+    <widget class="QCheckBox" name="checkBox_accept_report">
+     <property name="text">
+      <string>Принято</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="3">
+    <widget class="QLineEdit" name="lineEdit_sertificate_comment">
+     <property name="placeholderText">
+      <string>Комментарий Сертификата</string>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="3">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="3">
+    <widget class="QLineEdit" name="lineEdit_diplom_comment">
+     <property name="placeholderText">
+      <string>Комментарий Диплома</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0">
+    <widget class="QPushButton" name="pushButton_open_agree">
+     <property name="text">
+      <string>Согласие</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QPushButton" name="pushButton_open_snils">
+     <property name="text">
+      <string>СНИЛС</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QPushButton" name="pushButton_open_registration">
+     <property name="text">
+      <string>Регистрация</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="3">
+    <widget class="QLineEdit" name="lineEdit_agree_comment">
+     <property name="placeholderText">
+      <string>Комментарий Согласия</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLabel" name="label_username_login_role">
+     <property name="text">
+      <string>username_login_role</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>503</x>
+     <y>436</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>503</x>
+     <y>436</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reject_passport</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>done(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_accept_passport</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_passport_comment</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>503</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_open_passport</sender>
+   <signal>clicked()</signal>
+   <receiver>Accept_docs</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
