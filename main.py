@@ -14,6 +14,7 @@ from Ui_Create_event import *
 from Ui_Create_participant import *
 from Ui_Create_organization import *
 from Ui_Create_inspector import *
+from Ui_Create_user import *
 from Ui_List_organization import *
 from Ui_List_participants import *
 
@@ -114,8 +115,7 @@ class Event_shedule(Ui_Event_shedule):
         self.pushButton_list_of_all_participants.clicked.connect(List_participants)
         self.pushButton_open_event.clicked.connect(Event)
         self.pushButton_export_xls.clicked.connect(window.showMaximized)
-
-        # self.pushButton_print.clicked.connect(Event_shedule.show)
+        self.pushButton_print.clicked.connect(Create_user)
         # self.pushButton_find_event.clicked.connect(self.tree_event_shedule.clear)
         # self.comboBox_event_status.currentIndexChanged['QString'].connect(self.tree_event_shedule.expandAll)
 
@@ -195,6 +195,26 @@ class Create_Event(Ui_Create_event):
 
     def clicked_connect(self):
         self.pushButton_select_organization.clicked.connect(List_organization)
+
+
+class Create_user(Ui_Create_user):
+    def __init__(self):
+        username_login_role = access.get_username_and_role(user_login)
+        dialog = QDialog()
+        super().setupUi(dialog)
+        self.label_username_login_role.setText(f'{username_login_role}')
+        self.clicked_connect(dialog)
+        dialog.exec()
+
+    def clicked_connect(self, dialog):
+        self.pushButton_generate.clicked.connect(self.generate_password)
+        self.pushButton_save.clicked.connect(dialog.show)
+        self.pushButton_cancel.clicked.connect(dialog.close)
+        # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
+
+    def generate_password(self):
+        passw = generate_password.generate()
+        self.lineEdit_password.setText(f'{passw}')
 
 
 class Create_participant(Ui_Create_participant):

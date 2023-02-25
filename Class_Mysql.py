@@ -22,9 +22,8 @@ class Mysql:
             rows = cursor.fetchall()
             return rows
 
-    def add_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment,disabled):
+    def add_participant(self, phone_number, second_name, first_name, last_name, role, full_name, city, email, password, comment, disabled):
         """Добавление нового пользователя в базу данных MySql"""
-
         select_role_id = f"SELECT role_id FROM roles WHERE  role_name = '{role}'"
         with self.connection.cursor() as cursor:
             cursor.execute(select_role_id)
@@ -41,7 +40,7 @@ class Mysql:
             self.connection.commit()
 
     def select_all(self, table_name):
-        """Выбор всех строк из таблицы. Возвращает ? """
+        """Выбор всех строк из таблицы. Возвращает все строки"""
         select_all = f"SELECT * FROM {table_name}"
         with self.connection.cursor() as cursor:
             cursor.execute(select_all)
@@ -51,6 +50,7 @@ class Mysql:
         return result
 
     def get_participant_id(self, phone_number):
+        """Получение ID участника по номеру телефона"""
         select_id = f"SELECT participant_id FROM participants WHERE phone_number = {phone_number}"
         with self.connection.cursor() as cursor:
             cursor.execute(select_id)
@@ -58,6 +58,7 @@ class Mysql:
             self.connection.commit()
         print(result)
         return result
+
     def delete_participant(self, id):
         """Удаление пользователя из БД MySql по id"""
         delete_quere = f"DELETE FROM participants WHERE participant_id = {id}"
