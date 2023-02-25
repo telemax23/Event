@@ -7,6 +7,7 @@ from Class_Processing import *
 from Ui_Login import *
 from Ui_Event_shedule import *
 from Ui_Event import *
+from Ui_Add_participant import *
 from Ui_Analisis_list import *
 from Ui_Accept_docs import *
 from Ui_Create_event import *
@@ -134,7 +135,7 @@ class Event(Ui_Event):
         dialog.exec()
 
     def clicked_connect(self):
-        self.pushButton_add_participance.clicked.connect(List_participants)
+        self.pushButton_add_participance.clicked.connect(Add_participant)
         self.pushButton_analisis_doc.clicked.connect(Analisis_list)
 
 
@@ -163,6 +164,16 @@ class Analisis_list(Ui_Analisis_docs):
 
 class Accept_docs(Ui_Accept_docs):
     """Окно Принятия или отклонения документов"""
+    def __init__(self):
+        username_login_role = access.get_username_and_role(user_login)
+        dialog = QDialog()
+        super().setupUi(dialog)
+        self.label_username_login_role.setText(f'{username_login_role}')
+        # self.clicked_connect()
+        dialog.exec()
+
+
+class Add_participant(Ui_Add_participant):
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()

@@ -34,7 +34,7 @@
     <widget class="QLabel" name="label_username_login_role">
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -55,7 +55,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Общий список участников</string>
+      <string>Общий список всех участников</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -87,38 +87,31 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="5">
-    <widget class="QPushButton" name="pushButton_delete_participant">
+   <item row="7" column="4">
+    <widget class="QPushButton" name="pushButton_export_xls">
      <property name="text">
-      <string>Удалить участника</string>
+      <string>Export xls</string>
      </property>
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QPushButton" name="pushButton_add_participant_to_event">
-     <property name="text">
-      <string>Добавить выбранного в мероприятие</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
     <widget class="QPushButton" name="pushButton_create_participant">
      <property name="text">
       <string>Создать участника</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="4">
+   <item row="3" column="1">
     <widget class="QPushButton" name="pushButton_edit_participant">
      <property name="text">
       <string>Редактировать участника</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="4">
-    <widget class="QPushButton" name="pushButton_export_xls">
+   <item row="3" column="2">
+    <widget class="QPushButton" name="pushButton_delete_participant">
      <property name="text">
-      <string>Export xls</string>
+      <string>Удалить участника</string>
      </property>
     </widget>
    </item>
