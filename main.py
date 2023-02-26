@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem
 import time
 import pymysql
-
+from db_config import *
 import generate_password
 from Class_Mysql import *
 from Class_User import *
@@ -354,9 +354,7 @@ class List_participants(Ui_List_participants):
         headers_names = ['Телефон', 'Фамилия', 'Имя', 'Отчетство', 'Город', 'e-mail', 'Пароль', 'Комментарий']
         self.set_headers(headers_names, self.tree_participants_list)
         # Инициализация функции вывода списка всех участников
-
-        # self.set_view_of_all_participants()
-
+        self.set_view_of_all_participants()
         self.clicked_connect()
         dialog.exec()
 
@@ -381,7 +379,7 @@ class List_participants(Ui_List_participants):
         """Отображение данных по всем участникам"""
         keys = ['phone_number', 'second_name', 'first_name', 'last_name', 'email', 'city', 'password', 'comment']
         table_name = "participants"
-        all_participants = self.db.select_all(table_name)
+        all_participants = self.db.select_all_data(table_name)
 
         value = []
 

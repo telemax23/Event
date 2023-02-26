@@ -6,11 +6,7 @@ class Access:
     """Access module. Проверка данных Входа и роли пользователя, для совершения действия"""
     def login(self, input_phone, input_password):
         """Сверяет данные логина и пароля"""
-        host = "127.0.0.1"
-        port = 3306
-        user = "admin"
-        password = "gnt6al47"
-        db_name = "logistics_db"
+
 
         datadb = Mysql(host, port, user, password, db_name)
         table_name = "users"

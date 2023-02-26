@@ -7,11 +7,16 @@ import pymysql.cursors
 class Mysql:
     """Подключение и работа с базой данных MqSql"""
     def __init__(self, host, port, user, password, db_name):
-        # try:
-        self.connection = pymysql.connect(host=host, port=port, user=user, password=password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
-        print("Соединение с базой данных успешно проведено")
-        # except Exception as ex:
-        #     print("Error connection to db")
+        host = "127.0.0.1"
+        port = 3306
+        user = "admin"
+        password = "gnt6al47"
+        db_name = "logistics_db"
+        try:
+            self.connection = pymysql.connect(host=host, port=port, user=user, password=password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
+            print("Соединение с базой данных успешно проведено")
+        except Exception as ex:
+            print("Error connection to db")
 
 
     def select_all_data(self, table_name):
@@ -111,3 +116,4 @@ class Mysql:
     def __del__(self):
         """Закрытие сессии соединения с базой данных"""
         self.connection.close()
+
