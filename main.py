@@ -1,7 +1,9 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem
 import time
 import pymysql
+
 import generate_password
+from Class_Mysql import *
 from Class_User import *
 from Class_Processing import *
 from Ui_Login import *
@@ -28,21 +30,16 @@ class Login(Ui_Login):
         dialog.show()
         app.exit(app.exec())
 
+    def close_app(self):
+        """Выход из программы по Закрытию окна"""
+        journal.close_login()
+        sys.exit(4)
 
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопки Логин в окне 'Вход в программу'"""
         self.pushButton_login.clicked.connect(self.check_access)
         self.lineEdit_password.returnPressed.connect(self.check_access)
 
-    # def closeEvent(self, event):
-    #     journal.close_login()
-    #     # sys.exit(4)
-    #     event.accept()
-
-    def close_app(self):
-        """Выход из программы по Закрытию окна"""
-        journal.close_login()
-        sys.exit(4)
 
     def check_access(self):
         """Обработка входящих логина и пароля"""
@@ -65,7 +62,6 @@ class Login(Ui_Login):
         elif flag_access == 2:
             self.label_bad_password.setText("не верный")
             print(user_login['second_name'], user_login['first_name'], flag_access)
-            app.aboutToQuit.connect(self.close_app)
 
 
 class Event_shedule(Ui_Event_shedule):
@@ -212,13 +208,33 @@ class Create_user(Ui_Create_user):
 
     def clicked_connect(self, dialog):
         self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(dialog.show)
+        self.pushButton_save.clicked.connect(self.read_field)
+        self.pushButton_save.clicked.connect(dialog.close)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
     def generate_password(self):
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
+
+    def read_field(self):
+        new_user = {}
+        new_user['phone_number'] = self.lineEdit_phone_number.text()
+        new_user['second_name'] = self.lineEdit_second_name.text()
+        new_user['first_name'] = self.lineEdit_first_name.text()
+        new_user['last_name'] = self.lineEdit_last_name.text()
+        new_user['full_name'] = f"{self.lineEdit_second_name.text()} {self.lineEdit_first_name.text()} {self.lineEdit_last_name.text()}"
+        new_user['role_id'] = 2 # admin
+        new_user['email'] = self.lineEdit_email.text()
+        new_user['city'] = self.lineEdit_city.text()
+        new_user['password'] = self.lineEdit_password.text()
+        new_user['comment'] = self.lineEdit_comment.text()
+        new_user['disabled'] = False
+        self.write_user_to_db(new_user)
+
+    def write_user_to_db(self, new_user):
+        sql = Mysql(host = "127.0.0.1", user = "admin", port = 3306, password = "gnt6al47", db_name = "logistics_db")
+        sql.create_user(new_user)
 
 
 class Create_participant(Ui_Create_participant):
