@@ -9,8 +9,8 @@ class Mysql:
     def __init__(self, host, port, user, password, db_name):
         host = "127.0.0.1"
         port = 3306
-        user = "admin"
-        password = "gnt6al47"
+        user = "root"
+        password = "root"
         db_name = "logistics_db"
         try:
             self.connection = pymysql.connect(host=host, port=port, user=user, password=password, database=db_name, cursorclass=pymysql.cursors.DictCursor)
@@ -81,10 +81,10 @@ class Mysql:
             cursor.execute(select_all)
             result = cursor.fetchall()
             self.connection.commit()
-        print(result)
+        #print(result)
         return result
 
-    def get_role_from_role_id(self, role_id):
+    def get_role_by_role_id(self, role_id):
         """Получение Роли по id"""
         select_role_name = f"SELECT role_name FROM roles WHERE role_id = {role_id}"
         with self.connection.cursor() as cursor:
@@ -103,15 +103,33 @@ class Mysql:
             cursor.execute(select_id)
             result = cursor.fetchall()
             self.connection.commit()
-        print(result)
+        #print(result)
+        result = result[0]['participant_id']
         return result
 
-    def delete_participant(self, id):
-        """Удаление пользователя из БД MySql по id"""
-        delete_quere = f"DELETE FROM participants WHERE participant_id = {id}"
+    def update_participant_by_id(self, id, values):
+        """Обновление данных участника по id. (role_id по умолч. = 4)"""
+        update_by_id = f"UPDATE participants SET phone_number = '{values[0]}' ,"  \
+                       f"                        second_name  = '{values[1]}' ,"   \
+                       f"                        first_name   = '{values[2]}' ,"  \
+                       f"                        last_name    = '{values[3]}' ,"  \
+                       f"                        full_name    = '{values[4]}' ,"  \
+                       f"                        role_id      = '4'           ,"  \
+                       f"                        email        = '{values[5]}' ,"  \
+                       f"                        city         = '{values[6]}' ,"  \
+                       f"                        password     = '{values[7]}' ,"  \
+                       f"                        comment      = '{values[8]}'  WHERE participant_id = {id}"
         with self.connection.cursor() as cursor:
-            print(cursor.execute(delete_quere))
+            cursor.execute(update_by_id)
             self.connection.commit()
+    def delete_participant_by_id(self, id):
+        """Удаление участника по id из таблицы participants"""
+        delete_by_id = f"DELETE FROM participants WHERE participant_id = {id}"
+        with self.connection.cursor() as cursor:
+            cursor.execute(delete_by_id)
+            self.connection.commit()
+
+
 
     def __del__(self):
         """Закрытие сессии соединения с базой данных"""

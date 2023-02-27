@@ -38,7 +38,7 @@ class Access:
         datadb = Mysql(host, port, user, password, db_name)
         role_id = user_login['role_id']
         print(role_id)
-        role = datadb.get_role_from_role_id(role_id)
+        role = datadb.get_role_by_role_id(role_id)
         username_login_role = f'{username} ({role})'
         return username_login_role
 

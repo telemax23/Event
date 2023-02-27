@@ -51,7 +51,17 @@ class List_participants(Ui_List_participants):
             item = QTreeWidgetItem(value)
             self.tree_participants_list.addTopLevelItem(item)
             value.clear()
-
+    def delete_participant(self):
+        """Удаление участника из списка"""
+        try:
+            phone_number = self.tree_participants_list.currentItem().text(0)
+            print(phone_number)
+            id = (self.db.get_participant_id(phone_number))[0]["participant_id"]
+            self.db.delete_participant(id)
+            self.tree_participants_list.clear()
+            self.set_view_of_all_participants()
+        except Exception as ex:
+            print("cant do")
 
 
 if __name__ == '__main__':

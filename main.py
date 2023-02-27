@@ -241,20 +241,47 @@ class Create_participant(Ui_Create_participant):
     """Класс создания нового участника"""
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
-        dialog = QDialog()
-        super().setupUi(dialog)
+        self.dialog = QDialog()
+        super().setupUi(self.dialog)
         self.label_username_login_role.setText(f'{username_login_role}')
         self.checkBox_disabled_participant.setText("")
-        self.clicked_connect(dialog)
-        dialog.exec()
+        self.clicked_connect(self.dialog)
+        self.db = Mysql(host, port, user, password, db_name)
+        self.dialog.exec()
+
+
 
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок окна создание Участника"""
         self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(dialog.show)
+        self.pushButton_save.clicked.connect(self.add_new_participant)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
 
+    def add_new_participant(self):
+        """Добавляет нового пользователя в базу данных"""
+        phone_number = self.lineEdit_phone_number.text()
+        second_name = self.lineEdit_second_name.text()
+        first_name = self.lineEdit_first_name.text()
+        last_name = self.lineEdit_last_name.text()
+        email = self.lineEdit_email.text()
+        city = self.lineEdit_city.text()
+        password = self.lineEdit_password.text()
+        comment = self.lineEdit_comment.text()
+        disabled = self.checkBox_disabled_participant.isChecked()
+        #print("add")
+        role = "participant"
+        full_name = second_name + " " + first_name + " " + last_name
+        if len(phone_number) == 11:
+            try:
+                self.db.add_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
+                                    password, comment, disabled)
+                self.dialog.close()
+
+            except Exception as ex:
+                print("Error add new participant")
+        else:
+            self.lineEdit_phone_number.setPlaceholderText("ВВЕДИТЕ НОМЕР ТЕЛЕФОНА")
     def generate_password(self):
         """Генерация пароля по нажатию на кнопку"""
         passw = generate_password.generate()
@@ -263,23 +290,57 @@ class Create_participant(Ui_Create_participant):
 
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
-    def __init__(self):
+    def __init__(self, id_from_db, current_values):
         username_login_role = access.get_username_and_role(user_login)
-        dialog = QDialog()
-        super().setupUi(dialog)
+        self.dialog = QDialog()
+        super().setupUi(self.dialog)
         self.label_create_participant.setText("Редактирование участника")
         self.label_username_login_role.setText(f'{username_login_role}')
+        self.id_from_db = id_from_db
+        self.current_values = current_values
+        self.db = Mysql(host, port, user, password, db_name)
+        self.set_view()
 
-        self.clicked_connect(dialog)
-        dialog.exec()
+        self.clicked_connect(self.dialog)
+        self.dialog.exec()
 
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок окна Редактирование участника"""
         self.pushButton_generate.clicked.connect(self.generate_password)
-        self.pushButton_save.clicked.connect(dialog.show)
+        self.pushButton_save.clicked.connect(self.update_user)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
+    
+    def update_user(self):
+        """Обновляет данные пользователя в базе данных"""
+        values = []
+        values.append(self.lineEdit_phone_number.text())
+        values.append(self.lineEdit_second_name.text())
+        values.append(self.lineEdit_first_name.text())
+        values.append(self.lineEdit_last_name.text())
 
+        #Составление Full_name по полученным данным:
+        values.append(values[1] + " " + values[2] + " " + values[3])
+
+        values.append(self.lineEdit_city.text())
+        values.append(self.lineEdit_email.text())
+        values.append(self.lineEdit_password.text())
+        values.append(self.lineEdit_comment.text())
+
+        #print(values)
+        self.db.update_participant_by_id(self.id_from_db,values)
+        self.dialog.close()
+        #print("updated")
+    def set_view(self):
+        """Устанавливает в поля для ввода данные выбранного пользователя"""
+        self.lineEdit_phone_number.setText(self.current_values[0])
+        self.lineEdit_second_name.setText(self.current_values[1])
+        self.lineEdit_first_name.setText(self.current_values[2])
+        self.lineEdit_last_name.setText(self.current_values[3])
+        self.lineEdit_email.setText(self.current_values[4])
+        self.lineEdit_city.setText(self.current_values[5])
+        self.lineEdit_password.setText(self.current_values[6])
+        self.lineEdit_comment.setText(self.current_values[7])
     def generate_password(self):
         """Генерация пароля в окне Редактирования Участника"""
         passw = generate_password.generate()
@@ -366,7 +427,53 @@ class List_participants(Ui_List_participants):
     def clicked_connect(self):
         """Обработка нажатий кнопок в окне Список всех участников"""
         self.pushButton_create_participant.clicked.connect(Create_participant)
-        self.pushButton_edit_participant.clicked.connect(Edit_participant)
+        self.pushButton_create_participant.clicked.connect(self.update_tree)
+        self.pushButton_edit_participant.clicked.connect(self.edit_participant)
+        self.pushButton_edit_participant.clicked.connect(self.update_tree)
+        self.pushButton_delete_participant.clicked.connect(self.delete_participant)
+
+    def edit_participant(self):
+        """Открытие окна редактирования пользователя + получение данных по выбранному в QTreeWidget пользователю в виде списка"""
+        try:
+            item = self.tree_participants_list.currentItem()
+            result_data = []
+            for i in range(0,8):
+                item_string = item.text(i)
+                result_data.append(item_string)
+            id_from_db = self.db.get_participant_id(result_data[0])
+            #print(id_from_db, result_data)
+            Edit_participant(id_from_db, result_data)
+        except Exception as ex:
+            print("Error")
+
+    def delete_participant(self):
+        """Удаление выделенного участника"""
+        item = self.tree_participants_list.currentItem()
+        phone_number = item.text(0)
+        id = self.db.get_participant_id(phone_number)
+
+        self.db.delete_participant_by_id(id)
+        self.update_tree()
+    def update_tree(self):
+        """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
+        self.tree_participants_list.clear()
+        try:
+            db = Mysql(host, port, user, password, db_name)
+        except Exception as ex:
+            print("Error update list participants")
+
+        keys = ['phone_number', 'second_name', 'first_name', 'last_name', 'email', 'city', 'password', 'comment']
+        table_name = "participants"
+        all_participants = db.select_all_data(table_name)
+
+        value = []
+        for id in range(0, len(all_participants)):
+            for key in keys:
+                value.append(all_participants[id][key])
+            item = QTreeWidgetItem(value)
+            self.tree_participants_list.addTopLevelItem(item)
+            value.clear()
+
 
     def set_headers(self, headers_names, tree):
         """Устанавливает заголовки колонок для Списка всех участников"""
@@ -377,12 +484,12 @@ class List_participants(Ui_List_participants):
 
     def set_view_of_all_participants(self):
         """Отображение данных по всем участникам"""
+        print("set_view отработала")
         keys = ['phone_number', 'second_name', 'first_name', 'last_name', 'email', 'city', 'password', 'comment']
         table_name = "participants"
         all_participants = self.db.select_all_data(table_name)
 
         value = []
-
         for id in range(0, len(all_participants)):
             for key in keys:
                 value.append(all_participants[id][key])
