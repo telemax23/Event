@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTreeWidgetItem
 import time
 import pymysql
+import re
 from db_config import *
 import generate_password
 from Class_Mysql import *
@@ -23,6 +24,7 @@ from Ui_List_participants import *
 
 class Login(Ui_Login):
     """Класс работы с окном Вход в программу"""
+
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -39,7 +41,6 @@ class Login(Ui_Login):
         """Обработка нажатий кнопки Логин в окне 'Вход в программу'"""
         self.pushButton_login.clicked.connect(self.check_access)
         self.lineEdit_password.returnPressed.connect(self.check_access)
-
 
     def check_access(self):
         """Обработка входящих логина и пароля"""
@@ -66,6 +67,7 @@ class Login(Ui_Login):
 
 class Event_shedule(Ui_Event_shedule):
     """Класс работы с окном Расписание Мероприятий"""
+
     def __init__(self):
         window = QMainWindow()
         super().setupUi(window)
@@ -122,6 +124,7 @@ class Event_shedule(Ui_Event_shedule):
 
 class Event(Ui_Event):
     """Работа с окном Мероприятие"""
+
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -138,6 +141,7 @@ class Event(Ui_Event):
 
 class Analisis_list(Ui_Analisis_docs):
     """Класс работы с окном Анализ загруженных документов"""
+
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -148,7 +152,8 @@ class Analisis_list(Ui_Analisis_docs):
 
     def adjust_tree(self, tree):
         """Установка наименований для колонок Tree"""
-        columns_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'Паспорт', 'Прописка', 'ИНН', 'СНИЛС', 'Диплом', 'Сертификат', 'Согласие', 'Анкета', 'Договор', 'Акт', 'Отчет']
+        columns_names = ['Телефон', 'Фамилия', 'Имя', 'Отчество', 'Паспорт', 'Прописка', 'ИНН', 'СНИЛС', 'Диплом',
+                         'Сертификат', 'Согласие', 'Анкета', 'Договор', 'Акт', 'Отчет']
         # tree.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
         for name in columns_names:
             tree.headerItem().setText(columns_names.index(name), name)
@@ -162,6 +167,7 @@ class Analisis_list(Ui_Analisis_docs):
 
 class Accept_docs(Ui_Accept_docs):
     """Окно Принятия или отклонения документов"""
+
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -173,6 +179,7 @@ class Accept_docs(Ui_Accept_docs):
 
 class Add_participant(Ui_Add_participant):
     """Окно добавления участника в Мероприятие"""
+
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -184,6 +191,7 @@ class Add_participant(Ui_Add_participant):
 
 class Create_Event(Ui_Create_event):
     """Работа с окном Создание Мероприятия"""
+
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -198,6 +206,7 @@ class Create_Event(Ui_Create_event):
 
 class Create_user(Ui_Create_user):
     """Окно создания Пользователя"""
+
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         dialog = QDialog()
@@ -223,8 +232,9 @@ class Create_user(Ui_Create_user):
         new_user['second_name'] = self.lineEdit_second_name.text()
         new_user['first_name'] = self.lineEdit_first_name.text()
         new_user['last_name'] = self.lineEdit_last_name.text()
-        new_user['full_name'] = f"{self.lineEdit_second_name.text()} {self.lineEdit_first_name.text()} {self.lineEdit_last_name.text()}"
-        new_user['role_id'] = 2 # admin
+        new_user[
+            'full_name'] = f"{self.lineEdit_second_name.text()} {self.lineEdit_first_name.text()} {self.lineEdit_last_name.text()}"
+        new_user['role_id'] = 2  # admin
         new_user['email'] = self.lineEdit_email.text()
         new_user['city'] = self.lineEdit_city.text()
         new_user['password'] = self.lineEdit_password.text()
@@ -233,12 +243,13 @@ class Create_user(Ui_Create_user):
         self.write_user_to_db(new_user)
 
     def write_user_to_db(self, new_user):
-        sql = Mysql(host = "127.0.0.1", user = "admin", port = 3306, password = "gnt6al47", db_name = "logistics_db")
+        sql = Mysql(host="127.0.0.1", user="admin", port=3306, password="gnt6al47", db_name="logistics_db")
         sql.create_user(new_user)
 
 
 class Create_participant(Ui_Create_participant):
     """Класс создания нового участника"""
+
     def __init__(self):
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
@@ -248,8 +259,6 @@ class Create_participant(Ui_Create_participant):
         self.clicked_connect(self.dialog)
         self.db = Mysql(host, port, user, password, db_name)
         self.dialog.exec()
-
-
 
     def clicked_connect(self, dialog):
         """Обработка нажатий кнопок окна создание Участника"""
@@ -269,27 +278,40 @@ class Create_participant(Ui_Create_participant):
         password = self.lineEdit_password.text()
         comment = self.lineEdit_comment.text()
         disabled = self.checkBox_disabled_participant.isChecked()
-        #print("add")
+        # print("add")
         role = "participant"
         full_name = second_name + " " + first_name + " " + last_name
+        # Форматирование номера телефона
+        phone_number = self.formating_phone(phone_number)
         if len(phone_number) == 11:
             try:
                 self.db.add_participant(phone_number, second_name, first_name, last_name, role, full_name, email, city,
-                                    password, comment, disabled)
+                                        password, comment, disabled)
                 self.dialog.close()
 
             except Exception as ex:
                 print("Error add new participant")
         else:
             self.lineEdit_phone_number.setPlaceholderText("ВВЕДИТЕ НОМЕР ТЕЛЕФОНА")
+
     def generate_password(self):
         """Генерация пароля по нажатию на кнопку"""
         passw = generate_password.generate()
         self.lineEdit_password.setText(f'{passw}')
 
+    def formating_phone(self, phone_number):
+        """Форматирование строки телефона"""
+        phone_number = phone_number.replace('+7', '8').strip()
+        symbols = ["-", "(", ")", " "]
+        for symbol in symbols:
+            if symbol in phone_number:
+                phone_number = phone_number.replace(symbol, '')
+        return phone_number
+
 
 class Edit_participant(Ui_Create_participant):
     """Окно редактирования Участника"""
+
     def __init__(self, id_from_db, current_values):
         username_login_role = access.get_username_and_role(user_login)
         self.dialog = QDialog()
@@ -310,7 +332,7 @@ class Edit_participant(Ui_Create_participant):
         self.pushButton_save.clicked.connect(self.update_user)
         self.pushButton_cancel.clicked.connect(dialog.close)
         # self.checkBox_disabled_participant.stateChanged['int'].connect(dialog.show)
-    
+
     def update_user(self):
         """Обновляет данные пользователя в базе данных"""
         values = []
@@ -319,7 +341,7 @@ class Edit_participant(Ui_Create_participant):
         values.append(self.lineEdit_first_name.text())
         values.append(self.lineEdit_last_name.text())
 
-        #Составление Full_name по полученным данным:
+        # Составление Full_name по полученным данным:
         values.append(values[1] + " " + values[2] + " " + values[3])
 
         values.append(self.lineEdit_city.text())
@@ -327,10 +349,11 @@ class Edit_participant(Ui_Create_participant):
         values.append(self.lineEdit_password.text())
         values.append(self.lineEdit_comment.text())
 
-        #print(values)
-        self.db.update_participant_by_id(self.id_from_db,values)
+        # print(values)
+        self.db.update_participant_by_id(self.id_from_db, values)
         self.dialog.close()
-        #print("updated")
+        # print("updated")
+
     def set_view(self):
         """Устанавливает в поля для ввода данные выбранного пользователя"""
         self.lineEdit_phone_number.setText(self.current_values[0])
@@ -341,6 +364,7 @@ class Edit_participant(Ui_Create_participant):
         self.lineEdit_city.setText(self.current_values[5])
         self.lineEdit_password.setText(self.current_values[6])
         self.lineEdit_comment.setText(self.current_values[7])
+
     def generate_password(self):
         """Генерация пароля в окне Редактирования Участника"""
         passw = generate_password.generate()
@@ -349,6 +373,7 @@ class Edit_participant(Ui_Create_participant):
 
 class Create_organization(Ui_Create_organization):
     """Окно создания новой организации"""
+
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -359,6 +384,7 @@ class Create_organization(Ui_Create_organization):
 
 class Create_inspector(Ui_Create_inspector):
     """Окно создания инспектора"""
+
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -380,6 +406,7 @@ class Create_inspector(Ui_Create_inspector):
 
 class List_organization(Ui_List_organization):
     """Окно выводит список всех Организаций"""
+
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -405,6 +432,7 @@ class List_organization(Ui_List_organization):
 
 class List_participants(Ui_List_participants):
     """Окно выводит список всех участников в БД, вне зависимости от мероприятий"""
+
     def __init__(self):
         dialog = QDialog()
         super().setupUi(dialog)
@@ -437,11 +465,11 @@ class List_participants(Ui_List_participants):
         try:
             item = self.tree_participants_list.currentItem()
             result_data = []
-            for i in range(0,8):
+            for i in range(0, 8):
                 item_string = item.text(i)
                 result_data.append(item_string)
             id_from_db = self.db.get_participant_id(result_data[0])
-            #print(id_from_db, result_data)
+            # print(id_from_db, result_data)
             Edit_participant(id_from_db, result_data)
         except Exception as ex:
             print("Error")
@@ -454,6 +482,7 @@ class List_participants(Ui_List_participants):
 
         self.db.delete_participant_by_id(id)
         self.update_tree()
+
     def update_tree(self):
         """Обновление общего списка участников (Аналогично функции set_view_of_all_participants, но с небольшими отличиями)"""
         self.tree_participants_list.clear()
@@ -473,7 +502,6 @@ class List_participants(Ui_List_participants):
             item = QTreeWidgetItem(value)
             self.tree_participants_list.addTopLevelItem(item)
             value.clear()
-
 
     def set_headers(self, headers_names, tree):
         """Устанавливает заголовки колонок для Списка всех участников"""
