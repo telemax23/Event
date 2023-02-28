@@ -1,5 +1,5 @@
 import sys
-
+# Пробный коммит
 from PyQt5.QtWidgets import QApplication, QDialog
 from Ui_Login import *
 from Class_Access import *
